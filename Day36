@@ -1,0 +1,157 @@
+94. Binary Tree Inorder Traversal
+Given the root of a binary tree, return the inorder traversal of its nodes' values.
+
+Example 1:
+Input: root = [1,null,2,3]
+Output: [1,3,2]
+Constraints:
+
+The number of nodes in the tree is in the range [0, 100].
+-100 <= Node.val <= 100
+code:
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> result;
+        helper(root, result);
+        return result;
+    }
+
+    void helper(TreeNode* root, vector<int>& result) {
+        if (root != nullptr) {
+            helper(root->left, result);
+            result.push_back(root->val);
+            helper(root->right, result);
+        }
+    }
+};
+#2 144. Binary Tree Preorder Traversal
+Given the root of a binary tree, return the preorder traversal of its nodes' values.
+
+ 
+
+Example 1:
+
+
+Input: root = [1,null,2,3]
+Output: [1,2,3]
+Example 2:
+
+constraints:
+
+The number of nodes in the tree is in the range [0, 100].
+-100 <= Node.val <= 100
+
+code:
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root)
+     {
+        vector<int>result;
+        preorder(root,result);
+        return result;
+    }
+    void preorder(TreeNode*root,vector<int>&result)
+    {
+        if(root!=nullptr){
+            result.push_back(root->val);
+            preorder(root->left,result);
+            preorder(root->right,result);
+            
+        }
+    }
+};
+#3
+145. Binary Tree Postorder Traversal
+Solved
+Easy
+Topics
+Companies
+Given the root of a binary tree, return the postorder traversal of its nodes' values.
+
+ 
+
+Example 1:
+
+
+Input: root = [1,null,2,3]
+Output: [3,2,1]
+
+Example 2:
+
+Input: root = []
+Output: []
+Example 3:
+
+Input: root = [1]
+Output: [1]
+ 
+
+Constraints:
+
+The number of the nodes in the tree is in the range [0, 100].
+-100 <= Node.val <= 100
+ 
+ code:
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int>result;
+        postorder(root,result);
+        return result;
+    }
+    void postorder(TreeNode*root,vector<int>&result){
+        if(root!=nullptr){
+            postorder(root->left,result);
+            postorder(root->right,result);
+            result.push_back(root->val);
+            
+        }
+    }
+};
+
+#4  Count Leaf Nodes
+Problem statement
+You are given a Binary tree. You have to count and return the number of leaf nodes present in it.
+
+A binary tree is a tree data structure in which each node has at most two children, which are referred to as the left child and the right child
+
+A node is a leaf node if both left and right child nodes of it are NULL.
+
+Detailed explanation
+Constraints:
+1 <= T <= 100
+1 <= N <=10^3
+1 <= data <= 10^9
+
+Time Limit : 1 sec
+Sample Input 1:
+3
+1 -1 -1
+1  2  3  -1 -1 -1 4 -1 -1
+1  2 -1 -1 3 -1 4 -1 -1
+Sample Output 1:
+1
+2
+1
+Explanation For Sample Input 1:
+(i) 1 is the only node present in the tree, and hence it is the only leaf node.
+(ii) 2 and 4 are two leaf nodes present in the tree; all other nodes have at least one child (1 has 2 and 3 and 3 has 4).
+(iii) 4 is the only leaf node present in the tree as all other nodes have at least one child node (1 has 2, 2 has 3 and 3 has 4)
+
+code:
+
+int noOfLeafNodes(BinaryTreeNode<int> *root){
+    if (root == NULL) 
+    {
+        return 0;
+    }
+
+    if (root->left == NULL && root->right == NULL) {
+        return 1;
+    }
+    int leftLeafNodes =noOfLeafNodes(root->left);
+    int rightLeafNodes=noOfLeafNodes(root->right);
+
+    return leftLeafNodes + rightLeafNodes;
+}
