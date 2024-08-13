@@ -1,0 +1,161 @@
+543. Diameter of Binary Tree
+Given the root of a binary tree, return the length of the diameter of the tree.
+
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+
+The length of a path between two nodes is represented by the number of edges between them
+Example 1:
+Input: root = [1,2,3,4,5]
+Output: 3
+Explanation: 3 is the length of the path [4,2,1,3] or [5,2,1,3].
+Example 2:
+
+Input: root = [1,2]
+Output: 1
+ 
+Constraints:
+
+The number of nodes in the tree is in the range [1, 104].
+-100 <= Node.val <= 100
+
+class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+         int diameter = 0;
+
+        height(root, diameter);
+
+        return diameter;
+    }
+    private:
+   
+    int height(TreeNode* node, int& diameter) {
+        if (!node) {
+            return 0;
+        }
+        int lh = height(node->left, diameter);
+
+        int rh = height(node->right, diameter);
+
+        diameter = max(diameter, lh + rh);
+        
+        return 1 + max(lh, rh);
+    }
+};
+
+#110. Balanced Binary Tree
+Given a binary tree, determine if it is 
+height-balanced
+Example 1:
+
+Input: root = [3,9,20,null,null,15,7]
+Output: true
+
+Example 2:
+Input: root = [1,2,2,3,3,null,null,4,4]
+Output: false
+Example 3:
+
+Input: root = []
+Output: true
+ 
+Constraints:
+
+The number of nodes in the tree is in the range [0, 5000].
+-104 <= Node.val <= 104
+
+code:
+class Solution {
+public:
+int height(TreeNode*root){
+    if(root==NULL){
+        return 0;
+    }
+ int lh=height(root->left);
+     int rh=height(root->right);
+     return max(lh,rh)+1;
+}
+    bool isBalanced(TreeNode* root) {
+     if(root==NULL){
+         return true;
+     }   
+     if(isBalanced(root->left)==false){
+         return false;
+     }
+          if(isBalanced(root->right)==false){
+         return false;
+     }
+     int lh=height(root->left);
+     int rh=height(root->right);
+      if(abs(lh -rh)<=1){
+          return true;
+      }
+      else{
+          return false;
+      }
+    }
+};
+
+#Maximum Sum Path Of A Binary Tree.
+Problem statement
+You are given a binary tree having 'n' nodes. Each node of the tree has an integer value.
+
+A simple path is a path between any two nodes of a tree, such that no edge in the path is repeated twice. The sum of a simple path is defined as the summation of all node values in a path.
+
+Detailed explanation ( Input/output format, Notes, Images )
+Sample Input 1:
+1 2 3 4 -1 -1 -1 -1 -1
+Sample Output 1:
+10
+Explanation For Sample Input 1:
+The tree looks as follows:
+                        1
+                       / \
+                      2   3 
+                     /
+                    4
+The path between Node 3 (with value 3) and Node 4 (with value 4) produces the maximum sum, i.e., 10. Hence, the maximum possible sum is 10 in this case.
+Sample Input 2:
+2 4 -1 3 6 -1 -1 -1 -1 
+Sample Output 2:
+13
+Explanation For Sample Input 2:
+The tree looks as follows:
+                        2
+                       / 
+                      4    
+                     / \   
+                    3   6
+The path between Node 3 (with value 3) and Node 4 (with value 6) produces the maximum sum, i.e., 13. Hence, the maximum possible sum is 13 in this case.
+Expected time complexity:
+ The expected time complexity is O(n).
+Constraints:
+1 <= 'n' <= 10^6
+-10^5 <= 'data' <= 10^5 and 'data' !=-1
+
+Where ‘n’ is the total number of nodes in the binary tree, and 'data' is the value of the binary tree node
+
+Time Limit: 1 sec
+
+code:
+int findMaxPathSum(BinaryTreeNode<int> * root, int &maxi)
+  {
+
+        if (root==nullptr) 
+        {
+            return 0;
+        }
+  
+        int leftMaxPath =max(0,findMaxPathSum(root->left, maxi));
+        int rightMaxPath =max(0,findMaxPathSum(root->right, maxi));
+        maxi = max(maxi,leftMaxPath + rightMaxPath + root->data);
+
+        return max(leftMaxPath,rightMaxPath) + root->data;
+    }
+
+    int maxPathSum(BinaryTreeNode<int> *root)
+     {
+        int maxi = INT_MIN;
+        findMaxPathSum(root, maxi);
+        return maxi; 
+     }
