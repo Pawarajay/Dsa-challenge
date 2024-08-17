@@ -1,0 +1,107 @@
+103. Binary Tree Zigzag Level Order Traversal
+
+Given the root of a binary tree, return the zigzag level order traversal of its nodes' values. (i.e., from left to right, then right to left for the next level and alternate between).
+
+ 
+
+Example 1:
+
+
+Input: root = [3,9,20,null,null,15,7]
+Output: [[3],[20,9],[15,7]]
+Example 2:
+
+Input: root = [1]
+Output: [[1]]
+Example 3:
+
+Input: root = []
+Output: []
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 2000].
+-100 <= Node.val <= 100
+
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+         vector<vector<int>> result;
+        if(root == NULL){
+            return result;
+        }
+        
+        queue<TreeNode*> nodesQueue;
+        nodesQueue.push(root);
+        
+         bool leftToRight = true;
+        
+        while(!nodesQueue.empty()){
+            int size = nodesQueue.size();
+            vector<int> row(size);
+            for(int i=0; i<size; i++){
+                TreeNode* node = nodesQueue.front();
+                nodesQueue.pop();
+                int index =leftToRight ? i:(size -1- i);
+                row[index] = node->val;
+                if(node->left){
+                    nodesQueue.push(node->left);
+                }
+                if(node->right){
+                    nodesQueue.push(node->right);
+                }
+            }
+            leftToRight = !leftToRight;
+            result.push_back(row);
+        }
+        return result;
+    }
+    
+};
+
+#222. Count Complete Tree Nodes
+
+Given the root of a complete binary tree, return the number of the nodes in the tree.
+
+According to Wikipedia, every level, except possibly the last, is completely filled in a complete binary tree, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
+
+Design an algorithm that runs in less than O(n) time complexity.
+
+Example 1:
+
+
+Input: root = [1,2,3,4,5,6]
+Output: 6
+Example 2:
+
+Input: root = []
+Output: 0
+Example 3:
+
+Input: root = [1]
+Output: 1
+ 
+
+Constraints:
+
+The number of nodes in the tree is in the range [0, 5 * 104].
+0 <= Node.val <= 5 * 104
+The tree is guaranteed to be complete.
+
+
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        int count=0;
+        if(root== nullptr)
+        {
+            return 0;
+        }
+       
+        int lh=countNodes(root->left);
+        int rh=countNodes(root->right);
+         return (lh+rh)+1;
+      
+    }
+};
